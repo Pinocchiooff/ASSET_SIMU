@@ -1,8 +1,89 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "description": "Inventaire d'assets runtime. Les chemins sont relatifs à public/assets/. Ne référencer que des fichiers prêts réellement présents et dont la licence est vérifiée.",
-  "materials": {},
-  "models": {},
-  "environments": {},
-  "credits": []
+  "description": "Manifest runtime pour les assets 3D du simulateur drone. Les chemins sont relatifs à public/assets/.",
+  "materials": {
+    "grass_rock": {
+      "folder": "textures/grass_rock",
+      "maps": {
+        "albedo": "diff.jpg",
+        "normal": "nor_gl.jpg",
+        "roughness": "rough.jpg",
+        "ao": "ao.jpg"
+      },
+      "repeatMeters": 8,
+      "source": "https://polyhaven.com/a/aerial_grass_rock",
+      "license": "CC0"
+    },
+    "asphalt": {
+      "folder": "textures/asphalt",
+      "maps": {
+        "albedo": "diff.jpg",
+        "normal": "nor_gl.jpg",
+        "roughness": "rough.jpg",
+        "ao": "ao.jpg"
+      },
+      "repeatMeters": 4,
+      "source": "https://polyhaven.com/a/asphalt_02",
+      "license": "CC0"
+    },
+    "mud": {
+      "folder": "textures/mud",
+      "maps": {
+        "albedo": "diff.jpg",
+        "normal": "nor_gl.jpg",
+        "roughness": "rough.jpg",
+        "ao": "ao.jpg"
+      },
+      "repeatMeters": 6,
+      "source": "https://polyhaven.com/a/brown_mud_02",
+      "license": "CC0"
+    }
+  },
+  "models": {
+    "rock_boulder_dry": {
+      "file": "models/rocks/rock_boulder_dry.glb",
+      "scale": 1.0,
+      "source": "https://polyhaven.com/a/rock_boulder_dry",
+      "license": "CC0"
+    },
+    "drone_quad": {
+      "file": "models/vehicles/drone_quad.glb",
+      "scale": 1.0,
+      "source": "https://www.3dassets.dev",
+      "license": "Check asset page"
+    }
+  },
+  "environments": {
+    "autumn_field_puresky": {
+      "file": "environments/autumn_field_puresky.hdr",
+      "source": "https://polyhaven.com/a/autumn_field_puresky",
+      "license": "CC0"
+    }
+  },
+  "credits": [
+    {
+      "name": "aerial_grass_rock",
+      "author": "Poly Haven",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/aerial_grass_rock"
+    },
+    {
+      "name": "asphalt_02",
+      "author": "Poly Haven",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/asphalt_02"
+    },
+    {
+      "name": "brown_mud_02",
+      "author": "Poly Haven",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/brown_mud_02"
+    },
+    {
+      "name": "autumn_field_puresky",
+      "author": "Poly Haven",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/autumn_field_puresky"
+    }
+  ]
 }

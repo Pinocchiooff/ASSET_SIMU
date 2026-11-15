@@ -1,39 +1,93 @@
-# ASSET_SIMU — ressources 3D du simulateur de drone
+# ASSET_SIMU
 
-Dépôt public destiné à centraliser les assets, leurs licences et leur manifeste d’intégration pour l’application web Google AI Studio.
+Dépôt public pour stocker, préparer et documenter des assets 3D de simulateur drone pour Google AI Studio.
 
-## État actuel
+## Ce que contient le dépôt
 
-Le dépôt ne contenait que le README du modèle AI Studio au début de la préparation. Les assets déjà téléversés se trouvent dans l’autre dépôt public [`Pinocchiooff/aeroesiee-ai-studio`](https://github.com/Pinocchiooff/aeroesiee-ai-studio), à sa racine. Les outils disponibles ici peuvent préparer les fichiers de catalogue et de traitement, mais ne peuvent pas recopier/décompresser ces binaires dans ce dépôt. **Les assets ne sont donc pas encore installés dans `ASSET_SIMU`.**
+- `public/assets/` : ressources prêtes à charger dans le runtime web (`GLB`, `PNG`, `HDR`, fiches de matériau).
+- `source-assets/` : archives, pack sources et scripts de récupération à partir de sources publiques autorisées.
+- `docs/` : documentation d’usage, inventaire des assets et consignes AI Studio.
+- `scripts/` : scripts de récupération et validation des assets.
 
-Consultez [`docs/ASSET_INVENTORY.md`](docs/ASSET_INVENTORY.md) pour l’inventaire connu, puis exécutez le script local de préparation après avoir cloné ce dépôt. Le script télécharge les fichiers connus depuis le dépôt source, vérifie les SHA-256, prévient les doublons identiques et extrait les ZIP de manière sûre.
-
-## Organisation cible
+## Structure recommandée
 
 ```text
-public/assets/
-├── manifest.json
-├── environments/             # HDRI pour l’éclairage/ciel
-├── models/                   # GLB prêts à charger avec GLTFLoader
-│   ├── buildings/
-│   ├── props/
-│   ├── vegetation/
-│   └── vehicles/
-└── textures/                 # cartes PBR, regroupées par matériau
-    ├── asphalt/
-    ├── concrete/
-    ├── coast_rocks/
-    ├── ground/
-    ├── metal/
-    └── wood/
-
-source-assets/                 # archives et projets sources non directement chargeables
+ASSET_SIMU/
+├── README.md
+├── docs/
+│   ├── AI_STUDIO_SETUP.md
+│   ├── ASSET_INVENTORY.md
+│   └── EXTERNAL_ASSET_SOURCES.md
+├── public/
+│   └── assets/
+│       ├── manifest.json
+│       ├── environments/
+│       ├── models/
+│       └── textures/
+├── scripts/
+│   ├── fetch_assets.py
+│   └── fetch_polyhaven_pack.py
+└── source-assets/
+    ├── polyhaven/
+    └── README.md
 ```
 
-Les fichiers `.blend` et `.gltf.zip` ne sont pas directement chargeables par l’application comme un GLB prêt à l’emploi. Les archives glTF doivent être examinées et les cartes PBR extraites/repérées ; les fichiers Blender doivent être exportés en GLB. Le manifeste ne doit lister comme `ready` que les fichiers réellement présents et utilisables.
+## Pack de départ recommandé
+
+Le pack de départ est basé sur des sources ouvertes et largement utilisées, dont les licences sont compatibles avec une utilisation de simulation et de rendu web :
+
+- Poly Haven : CC0 pour la majorité des assets, y compris modèles glTF/GLB, textures PBR et HDRI.
+- ambientCG : textures PBR CC0, très utiles pour les surfaces et terrains.
+- Quaternius, 3DAssets.dev : modèles 3D CC0 ou permissifs pour végétation et props, à valider par asset.
+
+## Typologie d’assets à privilégier
+
+1. Terrain / surface
+   - grass_rock
+   - forest_ground
+   - mud
+   - asphalt
+   - concrete
+   - sand / coast rocks
+
+2. Modèles 3D
+   - rocher / pierre
+   - arbre / palmier / buisson
+   - bâtiments / hangars / tours
+   - drone / quadricoptère / avion léger
+
+3. Environnement
+   - HDRI de ciel / paysage
+   - lumière d’ambiance pour rendu réaliste
 
 ## AI Studio
 
-Dans un projet web utilisant `public/`, les fichiers statiques sont généralement accessibles sous `/assets/...`. Utilisez `GLTFLoader` pour les `.glb`, `RGBELoader` pour les HDRI et des textures compatibles avec les chargeurs de Three.js pour les cartes PBR. Le manifeste n’effectue pas lui-même le chargement : le code de l’application doit l’interpréter. Consultez [`docs/AI_STUDIO_SETUP.md`](docs/AI_STUDIO_SETUP.md).
+Le dépôt est prêt à être utilisé dans un projet AI Studio qui charge des fichiers statiques depuis le dossier `public/`.
 
-Vérifiez les licences asset par asset avant publication ou usage. Les fichiers issus d’un dépôt public ne sont pas automatiquement libres de droits. Gardez les crédits et les URL de source dans le manifeste.
+- Les modèles GLB doivent être chargés en `GLTFLoader`.
+- Les textures PBR doivent être associées aux matériaux via `map`, `normalMap`, `roughnessMap`, etc.
+- Les HDRI doivent être chargés via `RGBELoader` ou via le pipeline de rendu du projet.
+
+Voir aussi : `docs/AI_STUDIO_SETUP.md`.
+
+## Règle de validation avant usage
+
+Avant qu’un asset soit ajouté à `public/assets/`, vérifier :
+
+- format supporté (`.glb`, `.png`, `.jpg`, `.hdr`, `.exr`)
+- licence compatible
+- taille du fichier acceptable pour le web
+- présence des maps nécessaires (albedo, normal, roughness, AO)
+- cohérence de la nomenclature
+
+## Sources officielles de référence
+
+- Poly Haven API : https://api.polyhaven.com
+- Poly Haven GitHub : https://github.com/Poly-Haven/Public-API
+- ambientCG : https://ambientcg.com
+- Quaternius : https://quaternius.com
+- 3DAssets.dev : https://www.3dassets.dev
+
+## À noter
+
+Le dépôt ne doit pas contenir d’assets non vérifiés, ni des fichiers sans licence claire. Les scripts fournis permettent de préparer les sources, mais l’intégration finale dans `public/assets/` doit toujours rester manuelle et validée.
