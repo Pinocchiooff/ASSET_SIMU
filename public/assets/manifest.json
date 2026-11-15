@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Inventaire d'assets runtime. Les chemins sont relatifs à public/assets/. Ne référencer que des fichiers prêts réellement présents et dont la licence est vérifiée.",
+  "materials": {},
+  "models": {},
+  "environments": {},
+  "credits": []
+}
